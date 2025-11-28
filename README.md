@@ -12,7 +12,13 @@ A CLI tool to check if GitHub PRs have been cherry-picked to release branches.
 
 ## Installation
 
-### Install from PyPI (Recommended)
+### Install with uv (Recommended)
+
+```bash
+uv tool install cherry-pick-check
+```
+
+### Install with pip
 
 ```bash
 pip install cherry-pick-check
