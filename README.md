@@ -12,25 +12,29 @@ A CLI tool to check if GitHub PRs have been cherry-picked to release branches.
 
 ## Installation
 
-### Prerequisites
+### Install from PyPI (Recommended)
 
-- Python 3.10+
-- [uv](https://github.com/astral-sh/uv) package manager
+```bash
+pip install cherry-pick-check
+```
 
-### Install
+### Install from Source
 
 ```bash
 # Clone the repository
-git clone https://github.com/your-username/cherry-pick-check.git
+git clone https://github.com/zhuwenxing/cherry-pick-check.git
 cd cherry-pick-check
 
-# Create virtual environment
-uv venv -p 3.10
-source .venv/bin/activate
+# Install with pip
+pip install .
 
-# Install the project
-uv pip install -e .
+# Or install with uv
+uv pip install .
 ```
+
+### Requirements
+
+- Python 3.10+
 
 ## Authentication
 
