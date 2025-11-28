@@ -1,6 +1,6 @@
 import time
+from collections.abc import Generator
 from datetime import datetime
-from typing import Generator
 
 import httpx
 from rich.console import Console
@@ -151,9 +151,7 @@ class GitHubClient:
 
             page += 1
 
-    def _paginate(
-        self, endpoint: str, params: dict | None = None
-    ) -> Generator[dict, None, None]:
+    def _paginate(self, endpoint: str, params: dict | None = None) -> Generator[dict, None, None]:
         """Handle paginated API requests.
 
         Args:
@@ -214,9 +212,10 @@ class GitHubClient:
                     return True  # Signal to retry
                 else:
                     reset_dt = datetime.fromtimestamp(reset_time)
+                    reset_str = reset_dt.strftime("%H:%M:%S")
                     raise RateLimitError(
-                        f"GitHub API rate limit exceeded. Resets at: {reset_dt.strftime('%H:%M:%S')}\n"
-                        f"Try again in {wait_seconds} seconds, or wait and re-run the command."
+                        f"GitHub API rate limit exceeded. Resets at: {reset_str}\n"
+                        f"Try again in {wait_seconds} seconds, or wait and re-run."
                     )
             else:
                 raise RateLimitError("GitHub API rate limit exceeded.")

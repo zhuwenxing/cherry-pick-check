@@ -97,9 +97,7 @@ def _parse_pr_info(pr_data: dict, base_branch: str | None = None) -> PRInfo:
     # Parse created_at
     created_at = None
     if pr_data.get("created_at"):
-        created_at = datetime.fromisoformat(
-            pr_data["created_at"].replace("Z", "+00:00")
-        )
+        created_at = datetime.fromisoformat(pr_data["created_at"].replace("Z", "+00:00"))
 
     # Parse merged_at
     merged_at = None
@@ -108,9 +106,7 @@ def _parse_pr_info(pr_data: dict, base_branch: str | None = None) -> PRInfo:
             pr_data["pull_request"]["merged_at"].replace("Z", "+00:00")
         )
     elif pr_data.get("merged_at"):
-        merged_at = datetime.fromisoformat(
-            pr_data["merged_at"].replace("Z", "+00:00")
-        )
+        merged_at = datetime.fromisoformat(pr_data["merged_at"].replace("Z", "+00:00"))
 
     return PRInfo(
         number=pr_data["number"],
@@ -181,9 +177,7 @@ class CherryPickDetector:
                 TextColumn("[progress.description]{task.description}"),
                 transient=True,
             ) as progress:
-                task = progress.add_task(
-                    "Checking cherry-pick status...", total=len(source_prs)
-                )
+                task = progress.add_task("Checking cherry-pick status...", total=len(source_prs))
 
                 for pr in source_prs:
                     pr_results = self._detect_for_pr(repo, pr, target_branches)

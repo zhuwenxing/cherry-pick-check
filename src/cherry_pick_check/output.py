@@ -147,7 +147,9 @@ def print_results_table(
     picked_open = picked_count - picked_merged
 
     console.print()
-    console.print(f"[bold]Summary:[/bold] {total_prs} PRs ({open_prs} open, {merged_prs} merged) across {len(sorted_branches)} branches")
+    branch_count = len(sorted_branches)
+    pr_stats = f"{total_prs} PRs ({open_prs} open, {merged_prs} merged)"
+    console.print(f"[bold]Summary:[/bold] {pr_stats} across {branch_count} branches")
     console.print(
         f"  Cherry-picked: [green]{picked_merged} merged[/green], "
         f"[yellow]{picked_open} open[/yellow], "

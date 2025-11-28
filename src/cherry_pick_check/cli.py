@@ -80,7 +80,7 @@ def cli(
         raise SystemExit(1)
 
     if verbose:
-        console.print(f"[dim]Authenticated with GitHub[/dim]")
+        console.print("[dim]Authenticated with GitHub[/dim]")
 
     try:
         with GitHubClient(token) as client:
@@ -88,16 +88,14 @@ def cli(
 
             # Get user's PRs
             if verbose:
-                console.print(
-                    f"[dim]Fetching PRs by {username} on {repo}:{branch} since {since.date()}...[/dim]"
-                )
+                msg = f"Fetching PRs by {username} on {repo}:{branch} since {since.date()}..."
+                console.print(f"[dim]{msg}[/dim]")
 
             source_prs = detector.get_user_prs(repo, username, branch, since)
 
             if not source_prs:
-                console.print(
-                    f"[yellow]No PRs found for {username} on {repo}:{branch} since {since.date()}[/yellow]"
-                )
+                msg = f"No PRs found for {username} on {repo}:{branch} since {since.date()}"
+                console.print(f"[yellow]{msg}[/yellow]")
                 return
 
             # Print query info
@@ -108,6 +106,7 @@ def cli(
 
             # Count open and merged PRs
             from .models import PRState
+
             open_count = sum(1 for pr in source_prs if pr.state == PRState.OPEN)
             merged_count = len(source_prs) - open_count
             console.print(
@@ -121,9 +120,8 @@ def cli(
                 all_branches = client.get_branches(repo)
                 target_branches = filter_branches(all_branches, list(target))
                 if not target_branches:
-                    console.print(
-                        f"[red]Error:[/red] None of the specified branches exist: {', '.join(target)}"
-                    )
+                    msg = f"None of the specified branches exist: {', '.join(target)}"
+                    console.print(f"[red]Error:[/red] {msg}")
                     raise SystemExit(1)
             else:
                 # Auto-detect release branches
@@ -136,9 +134,8 @@ def cli(
                     major_only=not all_branches,
                 )
                 if not target_branches:
-                    console.print(
-                        "[yellow]No release branches detected. Use -t to specify target branches.[/yellow]"
-                    )
+                    msg = "No release branches detected. Use -t to specify target branches."
+                    console.print(f"[yellow]{msg}[/yellow]")
                     return
 
             if verbose:
